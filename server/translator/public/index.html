@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 다국어 번역기</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            accent: '#8B5CF6',
+            darkBlue: '#1E40AF',
+            lightBlue: '#DBEAFE',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- 데이터 및 유틸리티 함수 파일 -->
+  <script src="js/translator.js"></script>
+  <!-- DOM 조작 관련 스크립트 -->
+  <script src="js/app.js"></script>
+</head>
+<body class="bg-darkBlue text-white min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold text-center">
+        AI <span class="text-lightBlue">다국어</span> 번역기
+      </h1>
+      <p class="text-center text-gray-400 mt-2">
+        다양한 언어로 쉽고 빠르게 번역하세요
+      </p>
+    </header>
+
+    <main>
+      <div class="mb-8">
+        <label for="project" class="block mb-2 font-medium">프로젝트 선택</label>
+        <select id="project" class="w-full bg-darkBlue border border-gray-600 rounded p-2 focus:border-lightBlue focus:outline-none">
+          <option value="" disabled selected>프로젝트를 선택하세요</option>
+          <option value="test">테스트 프로젝트</option>
+        </select>
+      </div>
+
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label for="message" class="font-medium">메시지</label>
+          <div class="text-sm text-gray-400">지원 언어:</div>
+        </div>
+        <div id="languageContainer" class="mb-3 flex flex-wrap gap-2 text-sm"></div>
+        <textarea id="message" rows="4" class="w-full bg-darkBlue border border-gray-600 rounded p-2 focus:border-lightBlue focus:outline-none" placeholder="번역할 메시지를 입력하세요"></textarea>
+      </div>
+
+      <div class="mb-6">
+        <label for="key" class="block mb-2 font-medium">번역 키</label>
+        <input type="text" id="key" class="w-full bg-darkBlue border border-gray-600 rounded p-2 focus:border-lightBlue focus:outline-none" placeholder="번역 키를 입력하세요 (예: greeting.hello)">
+      </div>
+
+      <div class="flex flex-wrap gap-4 mb-8">
+        <button id="translateBtn" class="bg-lightBlue hover:bg-blue-600 text-darkBlue font-medium py-2 px-6 rounded-lg transition flex items-center gap-2">
+          <i class="fas fa-language"></i>
+          번역하기
+        </button>
+        <button id="syncBtn" class="bg-green-500 hover:bg-green-600 text-darkBlue font-medium py-2 px-6 rounded-lg transition flex items-center gap-2">
+          <i class="fas fa-sync-alt"></i>
+          동기화
+        </button>
+        <button id="deleteBtn" class="bg-red-500 hover:bg-red-600 text-darkBlue font-medium py-2 px-6 rounded-lg transition flex items-center gap-2">
+          <i class="fas fa-trash-alt"></i>
+          키 삭제
+        </button>
+      </div>
+
+      <div id="resultArea" class="bg-gray-800 p-4 rounded-lg mb-8 hidden">
+        <h3 class="text-lg font-medium mb-3">결과</h3>
+        <div id="resultText"></div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
