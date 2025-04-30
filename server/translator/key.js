@@ -4,7 +4,7 @@ require("dotenv").config();
 // 환경 변수에서 API 키 가져오기
 const API_KEY = process.env.OPENAI_API_KEY;
 
-// API 키가 없으면 경고 메시지 출력
+// API 키가 유효하지 않은 경우 경고 메시지 출력
 if (!API_KEY) {
   console.warn("⚠️ 경고: OPENAI_API_KEY가 설정되지 않았습니다.");
   console.warn(

@@ -1,0 +1,6 @@
+{
+  "word": {
+    "welcome": "Chào mừng bạn đến với hệ thống dịch tự động!",
+    "description": "Ví dụ này trình bày cách tự động hóa việc dịch đa ngôn ngữ bằng cách sử dụng Next.js và OpenAI API."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "word": {
+    "welcome": "Selamat datang di sistem penerjemahan otomatis!",
+    "description": "Contoh ini menunjukkan bagaimana mengotomatiskan terjemahan multibahasa menggunakan Next.js dan OpenAI API."
+  }
+}

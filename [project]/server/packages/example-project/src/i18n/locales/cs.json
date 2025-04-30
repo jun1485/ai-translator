@@ -1,0 +1,6 @@
+{
+  "word": {
+    "welcome": "Vítejte v automatickém překladatelském systému!",
+    "description": "Tento příklad ukazuje, jak automatizovat vícejazyčný překlad pomocí Next.js a OpenAI API."
+  }
+}

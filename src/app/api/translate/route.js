@@ -1,15 +1,6 @@
+import { translate } from "@local/translator/translator";
 import { NextResponse } from "next/server";
-import { translate, initializeTranslator } from "@local/translator";
 import path from "path";
-import fs from "fs-extra";
-
-// OPENAI_API_KEY는 배포 환경에서는 환경변수로 설정해주세요
-const OPENAI_API_KEY =
-  process.env.OPENAI_API_KEY || "여기에_OpenAI_API_키를_입력하세요";
-const LOCALES_DIR = path.join(process.cwd(), "public", "locales");
-
-// 초기화 함수 실행
-initializeTranslator(OPENAI_API_KEY, LOCALES_DIR);
 
 export async function POST(request) {
   try {
@@ -22,7 +13,8 @@ export async function POST(request) {
       );
     }
 
-    const result = await translate(text, keyPath, LOCALES_DIR);
+    const project = "ai translator";
+    const result = await translate(project, text, keyPath);
 
     return NextResponse.json({ success: true, translations: result });
   } catch (error) {

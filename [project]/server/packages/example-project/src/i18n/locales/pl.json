@@ -1,0 +1,6 @@
+{
+  "word": {
+    "welcome": "Witamy w systemie automatycznego tłumaczenia!",
+    "description": "Ten przykład demonstruje, jak zautomatyzować wielojęzyczne tłumaczenie przy użyciu Next.js i OpenAI API."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "word": {
+    "welcome": "Tervetuloa automaattisen käännösjärjestelmän pariin!",
+    "description": "Tämä esimerkki näyttää, kuinka monikielinen käännös voidaan automatisoida Next.js:n ja OpenAI API:n avulla."
+  }
+}

@@ -90,7 +90,7 @@ export default function AdminPage() {
             value={keyPath}
             onChange={(e) => setKeyPath(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="common.welcome"
+            placeholder="ex) words.welcome"
           />
         </div>
 
