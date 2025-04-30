@@ -68,7 +68,7 @@ export default function HomePage() {
               htmlFor="text"
               className="block mb-2 font-medium text-lg text-gray-300"
             >
-              번역할 텍스트 (한국어 권장)
+              번역할 텍스트
             </label>
             <textarea
               id="text"
@@ -94,7 +94,7 @@ export default function HomePage() {
               value={keyPath}
               onChange={(e) => setKeyPath(e.target.value)}
               className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
-              placeholder="ex) common.greeting 또는 page.home.title"
+              placeholder="ex) words.welcome"
               required
             />
           </div>
