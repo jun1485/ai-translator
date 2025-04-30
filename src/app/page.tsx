@@ -56,7 +56,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center py-10">
       <div className="w-full max-w-2xl px-4">
         <h1 className="text-3xl font-bold text-center mb-8 text-blue-400">
-          번역 관리
+          AI Translator
         </h1>
 
         <form

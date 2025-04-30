@@ -1,6 +1,5 @@
 import { translate } from "@local/translator/translator";
 import { NextResponse } from "next/server";
-import path from "path";
 
 export async function POST(request) {
   try {
