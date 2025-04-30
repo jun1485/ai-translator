@@ -9,6 +9,7 @@ const {
 } = require("./util");
 
 async function translate(project, word, nestedJsonKeyPath) {
+  let resultJson = null;
   try {
     // 폴더 경로 가져오기
     const folderPath = getFolderPath(project);
@@ -26,7 +27,7 @@ async function translate(project, word, nestedJsonKeyPath) {
     console.log(`사용할 키 경로: ${nestedJsonKeyPath}`);
 
     // API 호출하여 번역 결과 가져오기
-    const resultJson = await getGPTResponse(word);
+    resultJson = await getGPTResponse(word);
 
     // 번역 결과 유효성 검사
     if (
@@ -35,7 +36,7 @@ async function translate(project, word, nestedJsonKeyPath) {
       Object.keys(resultJson).length === 0
     ) {
       console.error("유효하지 않은 번역 결과:", resultJson);
-      return false;
+      return null;
     }
 
     const resultJsonKeyValue = Object.entries(resultJson);
@@ -61,15 +62,14 @@ async function translate(project, word, nestedJsonKeyPath) {
         console.log(`${key} 언어 번역 완료: ${value}`);
       } catch (err) {
         console.error(`${key} 언어 처리 중 오류: ${err.message}`);
-        // 개별 언어 오류는 무시하고 계속 진행
         continue;
       }
     }
 
-    return true;
+    return resultJson;
   } catch (error) {
     console.error("번역 중 오류 발생:", error);
-    return false;
+    return null;
   }
 }
 

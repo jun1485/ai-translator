@@ -1,6 +1,7 @@
 {
   "word": {
     "welcome": "Otomatik çeviri sistemine hoş geldiniz!",
-    "description": "Bu örnek, Next.js ve OpenAI API kullanarak çok dilli çeviriyi otomatikleştirme yöntemini göstermektedir."
+    "description": "Bu örnek, Next.js ve OpenAI API kullanarak çok dilli çeviriyi otomatikleştirme yöntemini göstermektedir.",
+    "example": "örnek"
   }
 }

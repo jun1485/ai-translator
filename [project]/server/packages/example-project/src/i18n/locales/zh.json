@@ -1,6 +1,7 @@
 {
   "word": {
     "welcome": "欢迎来到自动翻译系统！",
-    "description": "这个例子演示了如何使用 Next.js 和 OpenAI API 来实现多语言翻译的自动化。"
+    "description": "这个例子演示了如何使用 Next.js 和 OpenAI API 来实现多语言翻译的自动化。",
+    "example": "例子"
   }
 }

@@ -36,6 +36,10 @@ export default function HomePage() {
         throw new Error(data.error || "번역 처리 중 오류가 발생했습니다.");
       }
 
+      if (data.translations === null) {
+        throw new Error("번역 결과를 가져오지 못했습니다.");
+      }
+
       setResult(data.translations);
       setIsLoading(false);
     } catch (err) {
