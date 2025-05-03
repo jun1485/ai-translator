@@ -23,8 +23,7 @@ function checkEnvironment() {
       fs.mkdirSync(fullPath, { recursive: true });
       console.log(`디렉토리 생성됨: ${fullPath}`);
     } catch (err) {
-      console.warn(`디렉토리 생성 실패: ${fullPath}`);
-      console.error(err);
+      console.error(`디렉토리 생성 실패: ${fullPath}`, err);
     }
   }
 
@@ -47,6 +46,13 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// 표준 응답 형식 유틸리티 함수
+const sendResponse = (res, status, message, data = null) => {
+  const response = { status, message };
+  if (data) response.data = data;
+  return res.status(status).json(response);
+};
+
 // 루트 경로로 접속 시 index.html 파일을 서빙
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -56,70 +62,86 @@ app.get("/", (req, res) => {
 app.get("/api/projects", (req, res) => {
   try {
     const projects = getProjects();
-    res.json({ status: 200, projects });
+    sendResponse(res, 200, "프로젝트 목록을 성공적으로 가져왔습니다.", {
+      projects,
+    });
   } catch (error) {
     console.error("프로젝트 목록 조회 오류:", error);
-    res.json({
-      status: 500,
-      message: "프로젝트 목록을 가져오는데 실패했습니다.",
-    });
+    sendResponse(res, 500, "프로젝트 목록을 가져오는데 실패했습니다.");
   }
 });
 
 // POST 요청 처리
 app.post("/translate", async (req, res) => {
   const { project, msg, key } = req.body;
-  console.log("🚀 ~ app.post ~ project, msg, key:", project, msg, key);
+
+  if (!project || !msg || !key) {
+    return sendResponse(
+      res,
+      400,
+      `필수 파라미터가 누락되었습니다. (project: ${project}, msg: ${msg}, key: ${key})`
+    );
+  }
 
   try {
     const ok = await translate(project, msg, key);
     if (ok) {
-      res.send({ status: 200, message: `Complete!` });
+      sendResponse(res, 200, "번역이 완료되었습니다.");
     } else {
-      res.send({ status: 500, message: `Failed!` });
+      sendResponse(res, 500, "번역에 실패했습니다.");
     }
   } catch (error) {
-    console.log("🚀 ~ app.post ~ error:", error);
-
-    res.send({ status: 500, message: `Failed!` });
+    console.error("번역 처리 오류:", error);
+    sendResponse(res, 500, "번역 처리 중 오류가 발생했습니다.");
   }
 });
 
 app.post("/sync", async (req, res) => {
   const { project } = req.body;
-  console.log("🚀 ~ app.post ~ project:", project);
+
+  if (!project) {
+    return sendResponse(res, 400, "필수 파라미터가 누락되었습니다. (project)");
+  }
+
   try {
     const ok = await syncLocale(project);
     if (ok) {
-      res.send({ status: 200, message: `Complete!` });
+      sendResponse(res, 200, "로케일 동기화가 완료되었습니다.");
     } else {
-      res.send({ status: 500, message: `Failed!` });
+      sendResponse(res, 500, "로케일 동기화에 실패했습니다.");
     }
   } catch (error) {
-    console.log("🚀 ~ app.post ~ error:", error);
-
-    res.send({ status: 500, message: `Failed!` });
+    console.error("로케일 동기화 오류:", error);
+    sendResponse(res, 500, "로케일 동기화 중 오류가 발생했습니다.");
   }
 });
 
 app.post("/delete", async (req, res) => {
   const { project, key } = req.body;
-  console.log("🚀 ~ app.post ~ project, key:", project, key);
+
+  if (!project || !key) {
+    return sendResponse(
+      res,
+      400,
+      `필수 파라미터가 누락되었습니다. (project: ${project}, key: ${key})`
+    );
+  }
+
   try {
     const ok = await deleteKey(project, key);
     if (ok) {
-      res.send({ status: 200, message: `Complete!` });
+      sendResponse(res, 200, "키가 성공적으로 삭제되었습니다.");
     } else {
-      res.send({ status: 500, message: `Failed!` });
+      sendResponse(res, 500, "키 삭제에 실패했습니다.");
     }
   } catch (error) {
-    console.log("🚀 ~ app.post ~ error:", error);
-    res.send({ status: 500, message: `Failed!` });
+    console.error("키 삭제 오류:", error);
+    sendResponse(res, 500, "키 삭제 중 오류가 발생했습니다.");
   }
 });
 
 // 서버 포트 설정
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`서버가 시작되었습니다: http://localhost:${port}`);
 });
